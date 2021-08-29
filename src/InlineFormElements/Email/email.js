@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { setFormElement } from "../../reactExtensions";
 import inlineFormElements from "../inlineFormElements.module.css";
 
 export default function Email(props) {
-	const [email, setEmail] = useState(localStorage.getItem("email"));
+	const [email, setEmail] = useState("");
+
+	useEffect(() => {
+		setEmail(localStorage.getItem("email"));
+	}, []);
 
 	const onEmailSaveClick = e => {
 		fetch("https://api.borumtech.com/api/login", {
