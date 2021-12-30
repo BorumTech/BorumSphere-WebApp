@@ -10,7 +10,7 @@ import { useCookies } from "react-cookie";
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [cookies, setCookie, removeCookie] = useCookies(['id', 'email', 'apiKey']);
+	const setCookie = useCookies(['id', 'email', 'apiKey'])[0];
 
 	const history = useHistory("");
 
