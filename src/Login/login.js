@@ -4,11 +4,13 @@ import AccountForm from "../AccountForm/accountForm";
 import login from "../AccountForm/accountForm.module.css";
 import FormField from "../FormField/formField";
 import Layout from "../Layout/layout";
-import { CONFIRMED_STATE } from "../lib/states";
+import { CONFIRMED_STATE, live } from "../lib/states";
+import { useCookies } from "react-cookie";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [cookies, setCookie, removeCookie] = useCookies(['id', 'email', 'apiKey']);
 
 	const history = useHistory("");
 
@@ -45,7 +47,12 @@ export default function Login() {
 				localStorage.setItem("lastName", response.data.last_name);
 				localStorage.setItem("apiKey", response.data.api_key);
 
-				console.log("Test");
+				const config = { path: '/', domain: live ? '.borumtech.com' : 'localhost', sameSite: 'strict' };
+
+				setCookie('id', response.data.id, config);
+				setCookie('email', email, config);
+				setCookie('apiKey', response.data.api_key, config);
+
 				history.push("/account");
 			})
 			.catch(err => {
