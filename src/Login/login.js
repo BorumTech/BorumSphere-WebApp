@@ -5,10 +5,13 @@ import login from "../AccountForm/accountForm.module.css";
 import FormField from "../FormField/formField";
 import Layout from "../Layout/layout";
 import { CONFIRMED_STATE } from "../lib/states";
+import { useCookies } from "react-cookie";
+import config from "../lib/cookieConfig";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const setCookie = useCookies(['id', 'email', 'apiKey'])[1];
 
 	const history = useHistory("");
 
@@ -38,14 +41,19 @@ export default function Login() {
 				}
 			})
 			.then(response => {
+
+				const storeUserInfo = (name, value) => {
+					localStorage.setItem(name, value);
+					setCookie(name, value, config);
+				};
+
 				setConfirmed(CONFIRMED_STATE.SUCCESS);
-				localStorage.setItem("id", response.data.id);
-				localStorage.setItem("email", email);
+				storeUserInfo("id", response.data.id);
+				storeUserInfo("email", email);
 				localStorage.setItem("firstName", response.data.first_name);
 				localStorage.setItem("lastName", response.data.last_name);
-				localStorage.setItem("apiKey", response.data.api_key);
+				storeUserInfo("apiKey", response.data.api_key);
 
-				console.log("Test");
 				history.push("/account");
 			})
 			.catch(err => {

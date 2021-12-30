@@ -7,4 +7,6 @@ const CONFIRMED_STATE = {
 
 Object.freeze(CONFIRMED_STATE);
 
-export {CONFIRMED_STATE}
+const live = window.location.hostname !== "localhost";
+
+export {CONFIRMED_STATE, live }

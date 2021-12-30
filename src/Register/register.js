@@ -5,6 +5,8 @@ import accountForm from "../AccountForm/accountForm.module.css";
 import FormField from "../FormField/formField";
 import Layout from "../Layout/layout";
 import { CONFIRMED_STATE } from "../lib/states";
+import { useCookies } from "react-cookie";
+import config from "../lib/cookieConfig";
 
 export default function Register() {
 	const [email, setEmail] = useState("");
@@ -14,6 +16,7 @@ export default function Register() {
 	const [lastName, setLastName] = useState("");
 
 	const history = useHistory();
+	const setCookie = useCookies(["id", "email", "apiKey"])[1];
 
 	const handleEmailChange = e => setEmail(e.target.value);
 	const handlePasswordChange = e => setPassword(e.target.value);
@@ -47,11 +50,17 @@ export default function Register() {
 				setFirstName("");
 				setLastName("");
 
-				localStorage.setItem("email", email);
-				localStorage.setItem("id", response.data.id);
+				const storeUserInfo = (name, value) => {
+					localStorage.setItem(name, value);
+					setCookie(name, value, config);
+				};
+
+				storeUserInfo("email", email);
+				storeUserInfo("id", response.data.id);
 				localStorage.setItem("firstName", firstName);
 				localStorage.setItem("lastName", lastName);
-				localStorage.setItem("apiKey", response.data.api_key);
+				storeUserInfo("apiKey", response.data.api_key);
+				
 
 				history.push("/");
 			})
