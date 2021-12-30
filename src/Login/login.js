@@ -6,7 +6,7 @@ import FormField from "../FormField/formField";
 import Layout from "../Layout/layout";
 import { CONFIRMED_STATE } from "../lib/states";
 import { useCookies } from "react-cookie";
-import { config } from "../lib/cookieConfig";
+import config from "../lib/cookieConfig";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
