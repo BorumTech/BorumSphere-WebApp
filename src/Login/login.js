@@ -53,8 +53,10 @@ export default function Login() {
 				localStorage.setItem("firstName", response.data.first_name);
 				localStorage.setItem("lastName", response.data.last_name);
 				storeUserInfo("apiKey", response.data.api_key);
-
-				history.push("/account");
+				
+				// Redirect for SSO
+				const urlParams = new URLSearchParams(window.location.search);
+				urlParams.get("redirect") ? history.push(urlParams.get("redirect")) : history.push("/account");
 			})
 			.catch(err => {
 				let { message } = err;

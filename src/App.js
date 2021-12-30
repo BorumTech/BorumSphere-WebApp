@@ -36,6 +36,14 @@ function App() {
 				<Route path="/reset-password">
 					<ResetPassword />
 				</Route>
+				<Route path="/Flytrap" component={() => {
+					window.location.href = "https://audio.borumtech.com";
+					return null;
+				}} />
+				<Route path="/Jot" component={() => {
+					window.location.href = "https://jot.borumtech.com";
+					return null;
+				}} />
 			</Switch>
 		</BrowserRouter>
 	);
