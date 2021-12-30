@@ -4,6 +4,9 @@
   "description": "The web app for Borum users to read, update, delete, and create their account and the Borum products that they're using",
   "private": true,
   "dependencies": {
+    "@okta/okta-auth-js": "^5.9.1",
+    "@okta/okta-react": "^6.3.0",
+    "@okta/okta-signin-widget": "^5.14.1",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
