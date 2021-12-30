@@ -4,8 +4,9 @@ import AccountForm from "../AccountForm/accountForm";
 import login from "../AccountForm/accountForm.module.css";
 import FormField from "../FormField/formField";
 import Layout from "../Layout/layout";
-import { CONFIRMED_STATE, live } from "../lib/states";
+import { CONFIRMED_STATE } from "../lib/states";
 import { useCookies } from "react-cookie";
+import { config } from "../lib/cookieConfig";
 
 export default function Login() {
 	const [email, setEmail] = useState("");
@@ -40,18 +41,18 @@ export default function Login() {
 				}
 			})
 			.then(response => {
+
+				const storeUserInfo = (name, value) => {
+					localStorage.setItem(name, value);
+					setCookie(name, value, config);
+				};
+
 				setConfirmed(CONFIRMED_STATE.SUCCESS);
-				localStorage.setItem("id", response.data.id);
-				localStorage.setItem("email", email);
+				storeUserInfo("id", response.data.id);
+				storeUserInfo("email", email);
 				localStorage.setItem("firstName", response.data.first_name);
 				localStorage.setItem("lastName", response.data.last_name);
-				localStorage.setItem("apiKey", response.data.api_key);
-
-				const config = { path: '/', domain: live ? '.borumtech.com' : 'localhost', sameSite: 'strict' };
-
-				setCookie('id', response.data.id, config);
-				setCookie('email', email, config);
-				setCookie('apiKey', response.data.api_key, config);
+				storeUserInfo("apiKey", response.data.api_key);
 
 				history.push("/account");
 			})
