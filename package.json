@@ -1,6 +1,6 @@
 {
   "name": "borum-sphere",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "The web app for Borum users to read, update, delete, and create their account and the Borum products that they're using",
   "private": true,
   "dependencies": {

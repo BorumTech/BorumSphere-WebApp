@@ -15,6 +15,8 @@ export default function Login() {
 
 	const history = useHistory("");
 
+	const urlParams = new URLSearchParams(window.location.search);
+
 	useEffect(() => {
 		document.title = "Login - Borum Sphere";
 	}, []);
@@ -55,8 +57,7 @@ export default function Login() {
 				storeUserInfo("apiKey", response.data.api_key);
 				
 				// Redirect for SSO
-				const urlParams = new URLSearchParams(window.location.search);
-				urlParams.get("redirect") ? history.push(urlParams.get("redirect")) : history.push("/account");
+				urlParams.has("redirect") ? history.push(urlParams.get("redirect")) : history.push("/account");
 			})
 			.catch(err => {
 				let { message } = err;
@@ -98,7 +99,7 @@ export default function Login() {
 				<a target="_blank" rel="noreferrer" href="/forgot-password">
 					Forgot password? Reset it
 				</a>
-				<Link to="/signup">Don't have an account yet? Register</Link>
+				<Link to={"/signup" + (urlParams.has("redirect") ? `?redirect=${urlParams.get("redirect")}` : "")}>Don't have an account yet? Register</Link>
 				<button type="submit" className={login.card}>
 					Login
 				</button>

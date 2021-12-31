@@ -18,6 +18,8 @@ export default function Register() {
 	const history = useHistory();
 	const setCookie = useCookies(["id", "email", "apiKey"])[1];
 
+	const urlParams = new URLSearchParams(window.location.search);
+
 	const handleEmailChange = e => setEmail(e.target.value);
 	const handlePasswordChange = e => setPassword(e.target.value);
 	const handleConfirmPasswordChange = e => setConfirmPassword(e.target.value);
@@ -61,8 +63,8 @@ export default function Register() {
 				localStorage.setItem("lastName", lastName);
 				storeUserInfo("apiKey", response.data.api_key);
 				
-
-				history.push("/");
+				// Redirect for SSO
+				urlParams.get("redirect") ? history.push(urlParams.get("redirect")) : history.push("/account");
 			})
 			.catch(err => {
 				let { message } = err;
@@ -126,7 +128,7 @@ export default function Register() {
 					format="password"
 					label="Confirm Password"
 				/>
-				<Link to="/login">Already have an account? Login</Link>
+				<Link to={"/login" + (urlParams.has("redirect") ? `?redirect=${urlParams.get("redirect")}` : "")}>Already have an account? Login</Link>
 				<button type="submit" className={accountForm.card}>
 					Register
 				</button>
