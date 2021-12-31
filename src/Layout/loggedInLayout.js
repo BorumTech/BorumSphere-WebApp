@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import Sidebar from "../Sidebar/sidebar";
-import layout from "./layout.module.css";
+import "./layout.css";
 
 export default function LoggedInLayout(props) {
     const history = useHistory();
@@ -12,7 +12,7 @@ export default function LoggedInLayout(props) {
         }
     }, [history]);
     return (
-        <div id="outer-container" className={`${layout.container} ${layout.loggedInContainer}`}>
+        <div id="outer-container" className="container loggedInContainer">
             <Sidebar />
             <div id="page-wrap">{props.children}</div>
         </div>
