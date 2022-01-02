@@ -44,6 +44,10 @@ function App() {
 					window.location.href = "https://jot.borumtech.com";
 					return null;
 				}} />
+				<Route path="/Forum" component={() => {
+					window.location.href = "https://forum.borumtech.com";
+					return null;
+				}} />
 			</Switch>
 		</BrowserRouter>
 	);
