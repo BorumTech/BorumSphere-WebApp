@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { useCookies } from "react-cookie";
 import LoggedInLayout from "../Layout/loggedInLayout";
 import activatedAppsList from "./activatedAppsList.module.css";
-import { useCookies } from "react-cookie";
 
 export default function ActivatedAppsList() {
   const [activatedApps, setActivatedApps] = useState(null);
-  const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
+  const [cookies] = useCookies(["id", "email", "apiKey"]);
 
   useEffect(() => {
     if (!cookies.apiKey) return;
@@ -26,7 +26,7 @@ export default function ActivatedAppsList() {
       .catch(() => alert("A system error occurred. Your activated apps could not fetched at this time."));
 
     document.title = "Activated Apps - Borum Sphere";
-  }, []);
+  }, [cookies.apiKey]);
 
   return (
     <LoggedInLayout>
