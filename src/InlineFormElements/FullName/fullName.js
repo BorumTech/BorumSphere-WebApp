@@ -1,8 +1,8 @@
-import inlineFormElements from "../inlineFormElements.module.css";
 import { useCookies } from "react-cookie";
+import inlineFormElements from "../inlineFormElements.module.css";
 
 export default function FullName(props) {
-	const [cookies, setCookie, removeCookie] = useCookies(["id", "fullName", "apiKey"]);
+	const [cookies, setCookie] = useCookies(["id", "fullName", "apiKey"]);
 	const firstName = cookies.firstName ?? "";
 	const lastName = cookies.lastName ?? "";
 	const fullName = firstName + " " + lastName;

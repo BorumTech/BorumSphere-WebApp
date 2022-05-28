@@ -13,6 +13,8 @@ export default function Logout() {
 		removeCookie('id', config); 
 		removeCookie('email', config); 
 		removeCookie('apiKey', config);
+		removeCookie('firstName', config);
+		removeCookie('lastName', config);
 	}, [removeCookie])
     
     

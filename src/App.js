@@ -10,7 +10,7 @@ import ActivatedAppsList from "./ActivatedAppsList/activatedAppsList";
 import { useCookies } from "react-cookie";
 
 function App() {
-	const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
+	const [cookies] = useCookies(["id", "email", "apiKey"]);
 
 	return (
 		<BrowserRouter>
