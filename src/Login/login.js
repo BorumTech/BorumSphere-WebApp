@@ -11,7 +11,7 @@ import config from "../lib/cookieConfig";
 export default function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const setCookie = useCookies(['id', 'email', 'apiKey'])[1];
+	const setCookie = useCookies(['id', 'email', 'apiKey', 'firstName', 'lastName'])[1];
 
 	const history = useHistory("");
 
@@ -52,8 +52,8 @@ export default function Login() {
 				setConfirmed(CONFIRMED_STATE.SUCCESS);
 				storeUserInfo("id", response.data.id);
 				storeUserInfo("email", email);
-				localStorage.setItem("firstName", response.data.first_name);
-				localStorage.setItem("lastName", response.data.last_name);
+				storeUserInfo("firstName", response.data.first_name);
+				storeUserInfo("lastName", response.data.last_name);
 				storeUserInfo("apiKey", response.data.api_key);
 				
 				// Redirect for SSO

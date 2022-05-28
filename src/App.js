@@ -7,13 +7,16 @@ import ForgotPassword from "./ForgotPassword/forgotPassword";
 import ResetPassword from "./ResetPassword/resetPassword";
 import AccountSettings from "./AccountSettings/accountSettings";
 import ActivatedAppsList from "./ActivatedAppsList/activatedAppsList";
+import { useCookies } from "react-cookie";
 
 function App() {
+	const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
+
 	return (
 		<BrowserRouter>
 			<Switch>
 				<Route exact path="/">
-					<Redirect to={localStorage.getItem('apiKey') ? '/account' : '/login'} />
+					<Redirect to={cookies.apiKey ? '/account' : '/login'} />
 				</Route>
 				<Route path="/account">
 					<AccountSettings />

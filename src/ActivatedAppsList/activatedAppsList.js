@@ -1,16 +1,18 @@
 import { useEffect, useState } from "react";
 import LoggedInLayout from "../Layout/loggedInLayout";
 import activatedAppsList from "./activatedAppsList.module.css";
+import { useCookies } from "react-cookie";
 
 export default function ActivatedAppsList() {
   const [activatedApps, setActivatedApps] = useState(null);
+  const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
 
   useEffect(() => {
-    if (!localStorage.getItem('apiKey')) return;
+    if (!cookies.apiKey) return;
     
     fetch(`https://api.borumtech.com/api/login`, {
       headers: {
-        authorization: `Basic ${localStorage.getItem("apiKey")}`,
+        authorization: `Basic ${cookies.apiKey}`,
       },
     })
       .then((response) => {

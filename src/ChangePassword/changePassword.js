@@ -2,11 +2,13 @@ import FormField from "../FormField/formField";
 import { useState } from "react";
 import changePassword from "../AccountForm/accountForm.module.css";
 import { setFormElement } from "../reactExtensions";
+import { useCookies } from "react-cookie";
 
 export default function ChangePassword(props) {
 	const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmNewPassword, setConfirmNewPassword] = useState("");
+	const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
 
 	const handleChangePasswordClick = e => {
 		e.preventDefault();
@@ -15,7 +17,7 @@ export default function ChangePassword(props) {
 			method: "PUT",
 			headers: {
 				"content-type": "application/x-www-form-urlencoded",
-				authorization: "Basic " + localStorage.getItem("apiKey"),
+				authorization: "Basic " + cookies.apiKey,
 			},
 			body: `old_password=${currentPassword}&new_password=${newPassword}`,
 		})

@@ -5,24 +5,19 @@ import { useCookies } from "react-cookie";
 import config from "../../lib/cookieConfig";
 
 export default function Email(props) {
-	const [email, setEmail] = useState("");
-	const setCookie = useCookies(["email"])[1]
-
-	useEffect(() => {
-		setEmail(localStorage.getItem("email"));
-	}, []);
+	const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
+	const [email, setEmail] = useState(cookies.email);
 
 	const onEmailSaveClick = e => {
 		fetch("https://api.borumtech.com/api/login", {
 			method: "PUT",
 			headers: {
 				"content-type": "application/x-www-form-urlencoded",
-				"authorization": "Basic " + localStorage.getItem("apiKey")
+				"authorization": "Basic " + cookies.apiKey
 			},
 			body: `email=${email}`,
 		}).then(response => {
 			if (response.ok) {
-				localStorage.setItem("email", email);
 				setCookie("email", email, config)
 			} else 
 				alert("A system error occurred and the email could not be changed. We apologize for the inconvenience.");

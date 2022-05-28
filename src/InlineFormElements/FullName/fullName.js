@@ -1,15 +1,17 @@
 import inlineFormElements from "../inlineFormElements.module.css";
+import { useCookies } from "react-cookie";
 
 export default function FullName(props) {
-	const firstName = localStorage.getItem("firstName") ?? "";
-	const lastName = localStorage.getItem("lastName") ?? "";
+	const [cookies, setCookie, removeCookie] = useCookies(["id", "fullName", "apiKey"]);
+	const firstName = cookies.firstName ?? "";
+	const lastName = cookies.lastName ?? "";
 	const fullName = firstName + " " + lastName;
 
 	const saveNewName = () => {
 		fetch("https://api.borumtech.com/api/login", {
 			method: "PUT",
 			headers: {
-				authorization: `Basic ${localStorage.getItem("apiKey")}`,
+				authorization: `Basic ${cookies.apiKey}`,
 				"content-type": "application/x-www-form-urlencoded",
 			},
 			body: `firstName=${firstName}&lastName=${lastName}`,
@@ -24,6 +26,9 @@ export default function FullName(props) {
 					alert(
 						"Your first name and last name could not be updated because of a system error"
 					);
+				} else {
+					setCookie("firstName", firstName);
+					setCookie("lastName", lastName);
 				}
 			});
 	};
