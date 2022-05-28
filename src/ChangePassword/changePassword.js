@@ -8,7 +8,7 @@ export default function ChangePassword(props) {
 	const [currentPassword, setCurrentPassword] = useState("");
 	const [newPassword, setNewPassword] = useState("");
 	const [confirmNewPassword, setConfirmNewPassword] = useState("");
-	const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
+	const [cookies] = useCookies(["id", "email", "apiKey"]);
 
 	const handleChangePasswordClick = e => {
 		e.preventDefault();
