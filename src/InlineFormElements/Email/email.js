@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
-import { setFormElement } from "../../reactExtensions";
-import inlineFormElements from "../inlineFormElements.module.css";
+import { useState } from "react";
 import { useCookies } from "react-cookie";
 import config from "../../lib/cookieConfig";
+import { setFormElement } from "../../reactExtensions";
+import inlineFormElements from "../inlineFormElements.module.css";
 
 export default function Email(props) {
 	const [cookies, setCookie] = useCookies(["id", "email", "apiKey"]);
