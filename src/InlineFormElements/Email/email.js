@@ -5,7 +5,7 @@ import { useCookies } from "react-cookie";
 import config from "../../lib/cookieConfig";
 
 export default function Email(props) {
-	const [cookies, setCookie, removeCookie] = useCookies(["id", "email", "apiKey"]);
+	const [cookies, setCookie] = useCookies(["id", "email", "apiKey"]);
 	const [email, setEmail] = useState(cookies.email);
 
 	const onEmailSaveClick = e => {
